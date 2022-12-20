@@ -1,0 +1,17 @@
+name: ZAP-Test
+
+on:
+  push: 
+    branches: [ main ]
+
+jobs: 
+  build: 
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v2
+      - name: Build Image
+        run: docker-compose up -d
+      - name: ZAP build
+        run: docker pull ictu/zap2docker-weekly
+      - name: ZAP Scan
+        run: docker run --rm -v $(pwd):/zap/wrk/:rw -t ictu/zap2docker-weekly zap-baseline.py -I -j -t https://0.0.0.0:9000 -r testreport.html --hook=/zap/auth_hook.py -z "auth.loginurl=https://0.0.0.0:9000/login auth.username="user" auth.password="password""
