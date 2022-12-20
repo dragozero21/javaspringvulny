@@ -25,7 +25,7 @@ jobs:
                   auth.username="user" \
                   auth.password="password" \
                   auth.username_field="username" \
-                  auth.password_field="password"
+                  auth.password_field="password""
             echo "SUSKES"
       - uses: actions/upload-artifact@v3
         with:
