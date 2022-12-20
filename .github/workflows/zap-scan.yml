@@ -17,9 +17,9 @@ jobs:
         run: docker pull ictu/zap2docker-weekly
       - name: ZAP Scan
         run: |
-            docker run --rm -v $(pwd):/zap/wrk/:rw -t ictu/zap2docker-weekly zap-baseline.py -I -j -t https://172.17.0.1:9000 -r testreport.html --hook=/zap/auth_hook.py -z "auth.loginurl=https://172.17.0.1:9000/login auth.username="user" auth.password="password""
-            cp /zap/wrk/testreport.html testreport.html
+            docker run --rm -v /tmp:/zap/wrk/ -t ictu/zap2docker-weekly zap-baseline.py -I -j -t https://172.17.0.1:9000 -r testreport.html --hook=/zap/auth_hook.py -z "auth.loginurl=https://172.17.0.1:9000/login auth.username="user" auth.password="password""
+            echo "SUSKES"
       - uses: actions/upload-artifact@v3
         with:
           name: my-artifact
-          path: testreport.html
+          path: /tmp/testreport.html
